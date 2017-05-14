@@ -1,0 +1,96 @@
+﻿@model MoviesDataAccessLayes.Models.Movies
+@{
+    ViewBag.Title = "ManageMovie";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+
+@using (Html.BeginForm("Ads", "Ads", FormMethod.Post, new { enctype = "multipart/form-data", @class = "form-horizontal", role = "form" }))
+{
+    @Html.AntiForgeryToken()
+    <h4 class="text-center" style="margin-left:50px;margin-top:20px;">Manage movie</h4>
+    <hr />
+    @Html.HiddenFor(m => m.MovieID)
+    <div class="form-group">
+        @Html.LabelFor(m => m.Name, new { @class = "col-md-2 control-label" })
+        <div class="col-md-10">
+            @Html.TextBoxFor(m => m.Name, new { @class = "form-control" })
+        </div>
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(m => m.YearOfRelease, new { @class = "col-md-2 control-label" })
+        <div class="col-md-10">
+            @Html.DropDownListFor(m => m.YearOfRelease, new SelectList(ViewBag.Years as Dictionary<int, string>, "Key", "Value"), new { @class = "form-control" })
+        </div>
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(m => m.SliderImage, new { @class = "col-md-2 control-label" })
+        <div class="col-md-10">
+            <label for="image-uploads" class="imglbl" id="image-labels">Choose File</label>
+            <input type="file" name="SliderImageFile" class="imgUpload" id="image-uploads" />
+            <br /><br />
+            <div id="image-previews" class="image-previews">
+                @if (!String.IsNullOrEmpty(@Model.SliderImage))
+                {
+                    <img class="image-previews" src="@Url.Content("~/Sliders/" + @Model.SliderImage)" alt="" />
+                }
+            </div>
+        </div>
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(m => m.BannerImage, new { @class = "col-md-2 control-label" })
+        <div class="col-md-10">
+            <label for="image-upload" class="imglbl" id="image-label">Choose File</label>
+            <input type="file" name="BannerImageFile" class="imgUpload" id="image-upload" />
+            <br /><br />
+            <div id="image-preview" class="image-preview">
+                @if (!String.IsNullOrEmpty(@Model.BannerImage))
+                {
+                    <img class="image-preview" src="@Url.Content("~/Banners/" + @Model.BannerImage)" alt="" />
+
+                }
+            </div>
+        </div>
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(m => m.BannerToolTip, new { @class = "col-md-2 control-label" })
+        <div class="col-md-10">
+            <textarea name="BannerToolTip" class="form-control" cols="2" rows="3">@Model.BannerToolTip</textarea>
+        </div>
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(m => m.URL, new { @class = "col-md-2 control-label" })
+        <div class="col-md-10">
+            @Html.TextBoxFor(m => m.URL, new { @class = "form-control" })
+        </div>
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(m => m.Tags, new { @class = "col-md-2 control-label" })
+        <div class="col-md-10">
+            @Html.TextBoxFor(m => m.Tags, new { @class = "form-control" })
+        </div>
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(m => m.HTMLContent, new { @class = "col-md-2 control-label" })
+        <div class="col-md-10">
+            <textarea name="HTMLContent" id="HTMLContent" rows="10" cols="80">
+                @Model.HTMLContent
+            </textarea>
+        </div>
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(m => m.GoogleMap, new { @class = "col-md-2 control-label" })
+        <div class="col-md-10">
+            <textarea name="GoogleMap" class="form-control" id="GoogleMap" cols="2" rows="3">
+                @Model.GoogleMap
+            </textarea>
+        </div>
+    </div>
+    <div class="form-group">
+        <div class="col-md-offset-2 col-md-10">
+            <input type="submit" class="btn btn-default" value="Submit" />
+        </div>
+    </div>
+}
+
